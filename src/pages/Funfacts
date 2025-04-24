@@ -1,0 +1,42 @@
+import React, { useState } from 'react';
+import { funFacts } from '../data/funFacts';
+import { Button } from './ui/button';
+
+const FunFacts = () => {
+  const [showFunFact, setShowFunFact] = useState(false);
+  const [funFactIndex, setFunFactIndex] = useState(0);
+
+  const toggleFunFact = () => setShowFunFact(!showFunFact);
+  const getNextFunFact = () => setFunFactIndex((prevIndex) => (prevIndex + 1) % funFacts.length);
+
+  return (
+    <div className="welcome-message">
+      <p>
+        Discover the fascinating world of dinosaurs at Dinoworld. Learn about different species,
+        view amazing media, and even shop for dinosaur merchandise!
+      </p>
+      <Button 
+        variant="outline" 
+        onClick={toggleFunFact} 
+        className="mt-4 bg-green-600 text-white hover:bg-green-700"
+      >
+        {showFunFact ? "Hide Fun Fact" : "Show Fun Fact"}
+      </Button>
+      
+      {showFunFact && (
+        <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-md">
+          <p className="text-green-800"><strong>Fun Fact:</strong> {funFacts[funFactIndex]}</p>
+          <Button 
+            variant="outline" 
+            onClick={getNextFunFact} 
+            className="mt-2 bg-green-600 text-white hover:bg-green-700"
+          >
+            Next Fun Fact
+          </Button>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default FunFacts;
